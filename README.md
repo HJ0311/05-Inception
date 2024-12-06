@@ -185,9 +185,13 @@
 
 예상 결과물에 대한 예제 다이어그램이다:
 
+<img width="688" alt="스크린샷 2024-12-06 오후 2 15 55" src="https://github.com/user-attachments/assets/edc89756-704d-48a4-8105-278e8237f08b">
+
 ##### Below is an example of the expected directory structure:
 
 아래는 예상 디렉터리 구조의 예제이다:
+
+<img width="725" alt="스크린샷 2024-12-06 오후 2 16 52" src="https://github.com/user-attachments/assets/9a4ae933-e027-4d65-afc3-fc89fa1d6137">
 
 > ⚠️
 >
