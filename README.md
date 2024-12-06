@@ -12,10 +12,10 @@
 
 | Chapter | Contents                                              | page |
 | :-----: | :-----------------------------------------------------| :--: |
-|    1    | [**Introduction**](#Chapter-2)                        |  3   |
-|    2    | [**General guidelines**](#Chapter-3)                  |  4   |
-|    3    | [**Mandatory part**](#Chapter-4)                      |  5   |
-|    4    | [**Bonus part**](#Chapter-5)                          |  9   |
+|    1    | [**Introduction**](#Chapter-1)                        |  3   |
+|    2    | [**General guidelines**](#Chapter-2)                  |  4   |
+|    3    | [**Mandatory part**](#Chapter-3)                      |  5   |
+|    4    | [**Bonus part**](#Chapter-4)                          |  9   |
 
 <br>
 
