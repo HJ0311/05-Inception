@@ -2,12 +2,16 @@
 FROM debian:bullseye
 
 # 필요한 패키지 설치
-RUN apt-get update && apt-get -y install mariadb-server mariadb-client && apt-get clean
+RUN apt-get -y update && apt install -y mariadb-server mariadb-client
 
-# MariaDB 설정 파일 덮어쓰기
-COPY ./tools/50-server.cnf /etc/mysql/mariadb.conf.d/
+# 포트 노출
+EXPOSE 3306
 
-# MariaDB 초기화 설정 자동화
-COPY ./tools/script.sh /
+# MariaDB 데이터 디렉토리 및 권한 설정 (파일 권한을 mysql 사용자 및 그룹으로 설정해 db 서버가 접근할 수 있도록 함)
+RUN mkdir -p /var/lib/mysql && chown -R mysql:mysql /var/lib/mysql && chmod -R 755 /var/lib/mysql
 
-ENTRYPOINT ["/script.sh"]
+# MariaDB 주요 설정 파일 덮어쓰기
+COPY ./tools/my.cnf /etc/mysql/my.cnf
+
+# 컨테이너 시작 시 MariaDB 실행
+CMD ["mysqld"]

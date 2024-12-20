@@ -3,70 +3,57 @@ version: '3.9' # docker 버전
 services: # 컨테이너로 실행될 서비스
   nginx:
     container_name: nginx # 컨테이너명
-    build: requirements/nginx/. # dockerfile의 경로
+    build: # dockerfile의 경로
+      context: requirements/nginx/.
+      dockerfile: Dockerfile
     image: nginx:v_final # docker 이미지 지정
     ports: "443:443" # (호스트 포트: 컨테이너 포트) 컨테이너의 내부 포트를 호스트에 매핑
     volumes: # 컨테이너와 호스트 간의 데이터 공유 설정
-      - wordpress_data:/var/www/html/wordpress
+      - wordpress_data:/var/www/html
     networks: # 컨테이너를 특정 네트워크에 연결
-      - inception
+      - wordpress_network
     depends_on: # 다른 서비스가 실행된 후에 현재 서비스를 실행하도록 설정
-      wordpress:
-        condition: service_healthy # 완전히 초기화가 완료될 때
+      - wordpress
     restart: always # 컨테이너가 다시 시작될 때 자동 재시작 (안정성 보장)
     env_file:
       - .env
 
-  mariadb:
-    container_name: mariadb
-    build: requirements/mariadb/.
+  db:
+    container_name: db
+    build:
+      context: requirements/mariadb/.
+      dockerfile: Dockerfile
     image: mariadb:v_final
     volumes:
       - db_data: /var/lib/mysql
     networks:
-      - inception
+      - wordpress_network
     restart: always
-    environment:
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
     env_file:
       - .env
 
   wordpress:
     container_name: wordpress
-    build: requirements/wordpress/.
+    build:
+      context: requirements/wordpress/.
+      dockerfile: Dockerfile
     image: wordpress:v_final
     volumes:
-      - wordpress_data:/var/www/html/wordpress
+      - wordpress_data:/var/www/html
     networks:
-      - inception
+      - wordpress_network
     depends_on:
-      - mariadb
+      - db
     restart: always
-    environment:
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
     env_file:
       - .env
+    environment:
+      
 
 volumes: # 컨테이너 공유 저장소
   db_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /Users/hyehan/Desktop/Inception_data/mariadb
-      o: bind
   wordpress_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /Users/hyehan/Desktop/Inception_data/wordpress
-      o: bind
 
 networks: # 컨테이너 통신 제어 네트워크
-  inception:
-    name: inception
+  wordpress_network:
     driver: bridge
