@@ -1,0 +1,28 @@
+# docker 버전
+version: '3.9'
+
+services: # 컨테이너로 실행될 서비스
+  mariadb:
+    container_name: mariadb
+    image: mariadb:v_final
+    build: requirements/mariadb/.
+    env_file:
+      - .env
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - inception_network
+    restart: always
+
+networks:
+  inception_network:
+    name: inception_network
+
+volumes:
+  db_data:
+    name: db_database
+    driver: local
+    driver_opts:
+      device: /media/sf_Inception_data/mariadb
+      o: bind
+      type: none
