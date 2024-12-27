@@ -4,30 +4,49 @@ version: '3.9'
 services: # 컨테이너로 실행될 서비스
   mariadb:
     container_name: mariadb
-    image: mariadb:latest
-    build: requirements/mariadb/.
+    build: requirements/mariadb
+    image: mariadb
     environment:
-      - MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      - MYSQL_USER: ${MYSQL_USER}
-      - MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      - MYSQL_DATABASE: ${MYSQL_DATABASE}
-    env_file:
-      - .env
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    env_file: .env
+    expose:
+      - "3306"
     volumes:
-      - db_data:/var/lib/mysql
+      - db_vol:/var/lib/mysql
+    networks:
+      - inception_network
+    restart: always
+
+  nginx:
+    container_name: nginx
+    build: requirements/nginx
+    image: nginx
+    env_file: .env
+    expose:
+      - "443:443"
+    volumes:
+      - wp_vol:/var/www/html
     networks:
       - inception_network
     restart: always
 
 networks:
   inception_network:
-    name: inception_network
+    driver: bridge
 
 volumes:
-  db_data:
-    name: db_database
+  db_vol:
     driver: local
     driver_opts:
-      device: /media/sf_Inception_data/mariadb
+      device: /home/root/data/db_vol
+      o: bind
+      type: none
+  wp_vol:
+    driver: local
+    driver_opts:
+      device: /home/root/data/wp_vol
       o: bind
       type: none

@@ -1,11 +1,10 @@
 FROM debian:bullseye
 
-RUN apt-get update && apt-get -y install mariadb-server mariadb-client && rm -rf /var/lib/apt/lists/*
+RUN apt-get update -y && apt-get -y install mariadb-server
 
-RUN mkdir -p /var/run/mysqld \
-    && (getent group mysql || groupadd mysql) \
-    && (id -u mysql || useradd -r -g mysql mysql) \
-    && chown -R mysql:mysql /var/run/mysqld \
-    && chmod 755 /var/run/mysqld
+RUN mkdir -p /var/run/mysqld && mkdir -p /run/mysqld
+RUN chown -R mysql:mysql /run/mysqld && chown -R mysql:root /var/run/mysqld
 
-EXPOSE 3306
+COPY tools/start.sh /
+
+ENTRYPOINT  ["bash", "start.sh"]
