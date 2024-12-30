@@ -12,11 +12,16 @@ server {
 	listen 443 ssl;
 	listen [::]:443 ssl;
 
-	#server_name www.$DOMAIN_NAME $DOMANIN_NAME;
+	server_name localhost;
 
 	ssl_certificate $CERTS;
 	ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
 
 	ssl_protocols TLSv1.3;
+
+	location / {
+		root /usr/share/nginx/html;
+		index index.html;
+	}
 }
 " > /etc/nginx/sites-available/default
