@@ -1,8 +1,16 @@
+#####################
+# Install essential #
+#####################
+
+sudo apt-get update
+sudo apt-get install vim
+sudo apt-get install make
+
+
 ##################
 # Install Docker #
 ##################
 
-sudo apt-get update
 # ca-certificates: SSL 인증서를 관리해 HTTPS 요청의 신뢰성 보장, curl: URL 요청을 위한 명령줄 도구
 # gnugp: GPG 키를 관리해 패키지 서명을 확인, lsb-release: 배포판 정보를 제공하는 유틸리티
 sudo apt-get install ca-certificates curl gnupg lsb-release
