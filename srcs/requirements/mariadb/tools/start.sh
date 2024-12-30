@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [ ! -d /var/lib/mysql/${MYSQL_DATABASE} ]; then
     mysqld&
     until mysqladmin ping; do
