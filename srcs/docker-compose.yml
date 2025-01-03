@@ -4,13 +4,9 @@ version: '3.9'
 services: # 컨테이너로 실행될 서비스
   mariadb:
     container_name: mariadb
-    build: requirements/mariadb
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-    env_file: .env
+    build: ./requirements/mariadb/.
+    env_file:
+      - .env
     volumes:
       - db_vol:/var/lib/mysql
     networks:
