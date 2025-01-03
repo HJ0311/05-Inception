@@ -12,12 +12,12 @@ server {
 	listen 443 ssl;
 	listen [::]:443 ssl;
 
-	server_name localhost;
+	server_name www.$DOMAIN_NAME $DOMAIN_NAME;
 
 	ssl_certificate $CERTS;
 	ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
 
-	ssl_protocols TLSv1.3;
+	ssl_protocols TLSv1.2 TLSv1.3;
 
 	location / {
 		root /usr/share/nginx/html;
@@ -25,3 +25,7 @@ server {
 	}
 }
 " > /etc/nginx/sites-available/default
+
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+
+nginx -g "deamon off";

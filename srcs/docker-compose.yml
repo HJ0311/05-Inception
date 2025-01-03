@@ -25,7 +25,7 @@ services: # 컨테이너로 실행될 서비스
     build: requirements/nginx
     image: nginx
     env_file: .env
-    expose:
+    port:
       - "443:443"
     volumes:
       - wp_vol:/var/www/html
