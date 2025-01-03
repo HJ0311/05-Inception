@@ -2,6 +2,14 @@
 
 export ${cat ../../../.env | xargs}
 
+if [ -f "$ENV_FILE_PATH" ]; then
+	export $(cat "$ENV_FILE_PATH" | xargs)
+	echo "OK"
+else
+	echo "FAILED"
+	exit 1
+fi
+
 # self-signed certification create
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 -keyout /etc/ssl/private/nginx-selfsigned.key \
