@@ -28,6 +28,4 @@ server {
 }
 " > /etc/nginx/sites-available/default
 
-ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
-
 nginx -g "daemon off";
