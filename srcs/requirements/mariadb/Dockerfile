@@ -7,5 +7,6 @@ RUN chown -R mysql:mysql /run/mysqld && chown -R mysql:root /var/run/mysqld
 
 COPY tools/50-server.cnf /etc/mysql/mariadb.conf.d/
 COPY tools/start.sh /
+RUN chmod +x /start.sh
 
 CMD ["/start.sh"]
