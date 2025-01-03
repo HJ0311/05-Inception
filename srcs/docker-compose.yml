@@ -12,8 +12,6 @@ services: # 컨테이너로 실행될 서비스
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     env_file: .env
-    expose:
-      - "3306"
     volumes:
       - db_vol:/var/lib/mysql
     networks:
