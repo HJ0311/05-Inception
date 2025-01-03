@@ -5,7 +5,6 @@ services: # 컨테이너로 실행될 서비스
   mariadb:
     container_name: mariadb
     build: requirements/mariadb
-    image: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_USER: ${MYSQL_USER}
@@ -21,7 +20,6 @@ services: # 컨테이너로 실행될 서비스
   nginx:
     container_name: nginx
     build: requirements/nginx
-    image: nginx
     env_file: .env
     ports:
       - "443:443"
