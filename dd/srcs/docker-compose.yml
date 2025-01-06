@@ -1,0 +1,45 @@
+# docker 버전
+version: '3.9'
+
+services: # 컨테이너로 실행될 서비스
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb/
+    image: mariadb:42
+    env_file:
+      - .env
+    volumes:
+      - DB:/var/lib/mysql
+    networks:
+      - inception_network
+    restart: always
+
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx/
+    image: nginx:42
+    env_file: .env
+    ports:
+      - 443:443
+    volumes:
+      - WordPress:/var/www/html
+    networks:
+      - inception_network
+    restart: always
+
+networks:
+  inception_network:
+
+volumes:
+  DB:
+    driver: local
+    driver_opts:
+      device: /home/hyehan/Desktop/Data/MaraiDB
+      o: bind
+      type: none
+  WordPress:
+    driver: local
+    driver_opts:
+      device: /home/hyehan/Desktop/Data/WP
+      o: bind
+      type: none
