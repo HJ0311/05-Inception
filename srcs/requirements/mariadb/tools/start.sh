@@ -12,6 +12,6 @@ echo "GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_ROOT_USER}'@'%';" 
 echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '12345' ;" >> db1.sql
 echo "FLUSH PRIVILEGES;" >> db1.sql
 
-kill $(cat /var/run/mysqld/mysqld.pid)
+mysqladmin -u root -p $MYSQL_ROOT_PASSWORD shutdown
 
 mysqld
