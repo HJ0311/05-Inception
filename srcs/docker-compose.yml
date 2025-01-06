@@ -35,12 +35,12 @@ volumes:
   db_vol:
     driver: local
     driver_opts:
-      device: /home/hyehan/Inception_data/db_vol
+      device: /home/hyehan/Desktop/Inception_data/db_vol
       o: bind
       type: none
   wp_vol:
     driver: local
     driver_opts:
-      device: /home/hyehan/Inception_data/wp_vol
+      device: /home/hyehan/Desktop/Inception_data/wp_vol
       o: bind
       type: none
