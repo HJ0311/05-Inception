@@ -1,18 +1,18 @@
-#!bin/sh
+#!/bin/bash
 
 mysqld_safe &
 
 sleep 3
 
-mariadb -u root <<EOF
-CREATE DATABASE $DB_NAME;
-CREATE USER $MARIA_DB_USER@'%' IDENTIFIED BY '$MARIA_DB_USER_PASSWORD';
-GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO $MARIA_DB_USER@'%';
+mariadb -u root << EOF
+CREATE DATABASE $MYSQL_DATABASE;
+CREATE USER $MYSQL_USER@'%' IDENTIFIED BY '$MYSQL_PASSWORD';
+GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO $MYSQL_USER@'%';
 FLUSH PRIVILEGES;
 EOF
 
-mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MARIA_DB_ROOT_PASSWORD';"
+mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';"
 
-mysqladmin -u root -p$MARIA_DB_ROOT_PASSWORD shutdown
+mysqladmin -u root -p $MYSQL_ROOT_PASSWORD shutdown
 
 mysqld_safe
