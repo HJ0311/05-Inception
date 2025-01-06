@@ -1,13 +1,7 @@
 FROM debian:bullseye
 
-RUN apt-get update 
+RUN apt-get update -y && apt-get -y install nginx && apt-get install -y openssl
 
-RUN apt install -y nginx openssl
+COPY ./tools/start.sh /
 
-RUN mkdir /etc/nginx/ssl
-
-COPY tools/ng.sh /copy/
-
-RUN chmod +x /copy/ng.sh
-
-CMD ["./copy/ng.sh"]
+CMD ["/start.sh"]

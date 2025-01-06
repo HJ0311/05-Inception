@@ -1,57 +1,45 @@
-version: '3'
+# docker 버전
+version: '3.9'
 
-services:
+services: # 컨테이너로 실행될 서비스
   mariadb:
-    image: mariadb
-    build: ./requirements/mariadb/
     container_name: mariadb
-    restart: always
-    networks:
-      - NT
+    build: ./requirements/mariadb/
+    image: mariadb:42
+    env_file:
+      - .env
     volumes:
       - DB:/var/lib/mysql
-    env_file:
-      - .env
-
-  wordpress:
-    image: wordpress
-    build: ./requirements/wordpress/
-    container_name: wordpress
-    restart: always
     networks:
-      - NT
-    volumes:
-      - WordPress:/var/www/html
-    env_file:
-      - .env
+      - inception_network
+    restart: always
 
   nginx:
-    image: nginx
-    build: ./requirements/nginx/
     container_name: nginx
-    restart: always
-    networks:
-      - NT
+    build: ./requirements/nginx/
+    image: nginx:42
+    env_file: .env
     ports:
       - 443:443
     volumes:
       - WordPress:/var/www/html
-    env_file:
-      - .env
+    networks:
+      - inception_network
+    restart: always
 
 networks:
-  NT:
+  inception_network:
 
 volumes:
-  WordPress:
-    driver: local
-    driver_opts:
-       o: bind
-       type: none
-       device: /home/hyehan/Desktop/data/WP
   DB:
     driver: local
     driver_opts:
-       o: bind
-       type: none
-       device: /home/hyehan/Desktop/data/MariaDB
+      device: /home/hyehan/Desktop/Data/MaraiDB
+      o: bind
+      type: none
+  WordPress:
+    driver: local
+    driver_opts:
+      device: /home/hyehan/Desktop/Data/WP
+      o: bind
+      type: none
