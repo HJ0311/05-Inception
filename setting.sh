@@ -24,8 +24,8 @@ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o 
 # signed-by=/etc/apt/keyrings/docker.gpg: GPG키를 사용해 저장소에서 제공하는 패키지의 신뢰성을 확인한다.
 # sudo tee: 생성된 저장소 URL을 파일에 추가
 echo \
-	"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
-	$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
+	| sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
 # 도커 설치
 sudo apt-get install docker.io

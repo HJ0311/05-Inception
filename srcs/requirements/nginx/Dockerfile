@@ -1,14 +1,7 @@
-FROM debian:buster
+FROM debian:bullseye
 
+RUN apt-get update -y && apt-get -y install nginx && apt-get install -y openssl
 
-RUN apt -y update && apt install -y nginx && apt install openssl -y
+COPY ./tools/start.sh /
 
-
-
-
-# COPY ./conf/default /etc/nginx/sites-available/
-
-COPY ./tools/script.sh /
-
-
-CMD [ "/script.sh" ]
+CMD ["/start.sh"]
