@@ -1,6 +1,11 @@
 #!/bin/bash
 
-mysqld_safe &
+if [ ! -d "/var/lib/mysql/mysql" ]; then
+    echo "Initializing MariaDB data directory..."
+    mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+fi
+
+mysqld_safe --datadir=/var/lib/mysql --socket=/run/mysqld/mysqld.sock &
 
 sleep 10
 
