@@ -1,5 +1,9 @@
 #!/bin/bash
 
+mkdir -p /var/run/mysqld
+chown -R mysql:mysql /var/run/mysqld
+chmod 777 /var/run/mysqld
+
 service mysql start
 
 mysqld_safe --datadir=/var/lib/mysql --socket=/run/mysqld/mysqld.sock &
