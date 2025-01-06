@@ -1,9 +1,6 @@
 #!/bin/bash
 
-if [ ! -d "/var/lib/mysql/mysql" ]; then
-    echo "Initializing MariaDB data directory..."
-    mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
-fi
+service mysql start
 
 mysqld_safe --datadir=/var/lib/mysql --socket=/run/mysqld/mysqld.sock &
 
@@ -15,6 +12,6 @@ echo "GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_ROOT_USER}'@'%';" 
 echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '12345' ;" >> db1.sql
 echo "FLUSH PRIVILEGES;" >> db1.sql
 
-mysql < db1.sql
+kill $(cat /var/run/mysqld/mysqld.pid)
 
-wait
+mysqld
