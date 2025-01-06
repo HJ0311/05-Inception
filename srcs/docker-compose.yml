@@ -5,6 +5,7 @@ services: # 컨테이너로 실행될 서비스
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb/.
+    imgae: mariadb:42
     env_file:
       - .env
     volumes:
@@ -16,6 +17,7 @@ services: # 컨테이너로 실행될 서비스
   nginx:
     container_name: nginx
     build: requirements/nginx
+    image: nginx:42
     env_file: .env
     ports:
       - "443:443"
