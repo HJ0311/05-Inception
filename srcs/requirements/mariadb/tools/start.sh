@@ -1,21 +1,18 @@
 #!/bin/bash
 
-mkdir -p /var/run/mysqld
-chown -R mysql:mysql /var/run/mysqld
-chmod 777 /var/run/mysqld
+mysqld_safe &
 
-service mysql start
+sleep 3
 
-mysqld_safe --datadir=/var/lib/mysql --socket=/run/mysqld/mysqld.sock &
+mariadb -u root << EOF
+CREATE DATABASE $MYSQL_DATABASE;
+CREATE USER $MYSQL_USER@'%' IDENTIFIED BY '$MYSQL_PASSWORD';
+GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO $MYSQL_USER@'%';
+FLUSH PRIVILEGES;
+EOF
 
-sleep 10
+mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';"
 
-echo "CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};" > db1.sql
-echo "CREATE USER IF NOT EXISTS '${MYSQL_ROOT_USER}'@'%' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';" >> db1.sql
-echo "GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_ROOT_USER}'@'%';" >> db1.sql
-echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '12345' ;" >> db1.sql
-echo "FLUSH PRIVILEGES;" >> db1.sql
+mysqladmin -u root -p $MYSQL_ROOT_PASSWORD shutdown
 
-kill $(cat /var/run/mysqld/mysqld.pid)
-
-mysqld
+mysql_safe
