@@ -20,6 +20,7 @@ down:
 clean:
 	@rm -rf ${DB_VOL_DIR}/
 	@rm -rf ${WP_VOL_DIR}/
+	docker-compose down --rmi all; clear
 
 # docker compose 이미지를 빌드
 build:
