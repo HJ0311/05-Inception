@@ -1,31 +1,35 @@
 #!/bin/bash
 
+# Create SSL directories with proper permissions
 mkdir -p /etc/ssl/certs /etc/ssl/private
 
-# self-signed certification create
+# Generate self-signed certificate (ensure root permission)
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 -keyout /etc/ssl/private/nginx-selfsigned.key \
 -out /etc/ssl/certs/nginx-selfsigned.crt \
 -subj "/C=KR/ST=Seoul/L=Seoul/O=MyCompany/OU=IT/CN=localhost" || echo "OpenSSL 명령어 실행 실패"
 
-# server setting
+# Nginx server block configuration for SSL
 echo " 
 server {
-	listen 443 ssl;
-	listen [::]:443 ssl;
+    listen 443 ssl;
+    ssl_protocols TLSv1.2 TLSv1.3;
 
-	server_name www.$DOMAIN_NAME $DOMAIN_NAME;
+    ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
+    ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
 
-	ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
-	ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
-
-	ssl_protocols TLSv1.2 TLSv1.3;
-
-	location / {
-		root /usr/share/nginx/html;
-		index index.html;
-	}
+    location / {
+        root /usr/share/nginx/html;
+        index index.html;
+    }
 }
 " > /etc/nginx/sites-available/default
 
-nginx -g "daemon off";
+# Create symlink for sites-enabled (if on Debian/Ubuntu)
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+
+# Reload nginx to apply changes
+nginx -s reload
+
+# Keep Nginx running in the foreground (for Docker/Container environments)
+nginx -g "daemon off;"

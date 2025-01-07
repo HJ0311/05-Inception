@@ -1,8 +1,8 @@
 FROM debian:bullseye
 
 # 필요한 패키지 설치
-RUN apt-get update && \
-    apt-get install -y mariadb-server mariadb-client && \
+RUN apt-get update -y && \
+    apt-get install mariadb-server -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
