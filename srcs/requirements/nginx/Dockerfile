@@ -13,4 +13,4 @@ RUN chmod +x /usr/local/bin/start.sh
 # 볼륨 설정
 VOLUME [ "/var/www/html" ]
 
-CMD ["/start.sh"]
+CMD ["start.sh"]
