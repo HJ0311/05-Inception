@@ -3,6 +3,7 @@ FROM debian:bullseye
 # 필요한 패키지 설치
 RUN apt-get update -y && \
 	apt-get install nginx -y && \
+	apt-get install openssl -y && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
 
