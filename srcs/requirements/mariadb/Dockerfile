@@ -11,8 +11,8 @@ RUN mkdir -p /var/lib/mysql /var/run/mysqld && \
     chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
 
 # 컨테이너 시작 시 실행할 스크립트 복사
-COPY ./start.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/start.sh
+COPY ./start.sh /
+RUN chmod +x /start.sh
 
 # 포트 및 볼륨 설정
 EXPOSE 3306
