@@ -1,6 +1,6 @@
 DOCKER_COMPOSE_FILE := srcs/docker-compose.yml
-DB_VOL_DIR := /home/hyehan/Desktop/Data/MaraiDB
-WP_VOL_DIR := /home/hyehan/Desktop/Data/WP
+DB_VOL_DIR := /home/hyehan/data/MaraiDB
+WP_VOL_DIR := /home/hyehan/data/WP
 
 COMPOSE_CMD := docker-compose -f ${DOCKER_COMPOSE_FILE}
 

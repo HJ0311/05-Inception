@@ -8,6 +8,8 @@ services: # 컨테이너로 실행될 서비스
     image: mariadb:42
     env_file:
       - .env
+    expose:
+      - 3306
     volumes:
       - DB:/var/lib/mysql
     networks:
@@ -27,6 +29,19 @@ services: # 컨테이너로 실행될 서비스
       - inception_network
     restart: always
 
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress/
+    image: wordpress:42
+    env_file: .env
+    expose:
+      - 9000
+    volumes:
+      - WordPress:/var/www/html
+    networks:
+      - inception_network
+    restart: always
+
 networks:
   inception_network:
 
@@ -34,12 +49,12 @@ volumes:
   DB:
     driver: local
     driver_opts:
-      device: /home/hyehan/Desktop/Data/MaraiDB
+      device: /home/hyehan/data/MaraiDB
       o: bind
       type: none
   WordPress:
     driver: local
     driver_opts:
-      device: /home/hyehan/Desktop/Data/WP
+      device: /home/hyehan/data/WP
       o: bind
       type: none

@@ -17,6 +17,7 @@ sudo apt-get install curl
 sudo apt-get install ca-certificates curl gnupg lsb-release
 # GPG 키를 저장할 디렉토리 설정
 sudo mkdir -p /etc/apt/keyrings
+sudo mkdir -p /home/login/data
 # 도커 저장소의 GPG 키를 다운로드(도커 패키지의 신뢰성 검증)
 # gpg --dearmor: 다운로드한 GPG키를 바이너리 형식으로 변환해 저장
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg

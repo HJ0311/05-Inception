@@ -1,35 +1,36 @@
 #!/bin/bash
 
-# Create SSL directories with proper permissions
+# SSL을 생성할 폴더 권한 설정
 mkdir -p /etc/ssl/certs /etc/ssl/private
 
-# Generate self-signed certificate (ensure root permission)
+# 인증서 생성
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 -keyout /etc/ssl/private/nginx-selfsigned.key \
--out /etc/ssl/certs/nginx-selfsigned.crt \
+-out $CERTS \
 -subj "/C=KR/ST=Seoul/L=Seoul/O=MyCompany/OU=IT/CN=localhost" || echo "OpenSSL 명령어 실행 실패"
 
-# Nginx server block configuration for SSL
+# SSL 관련 설정
 echo " 
 server {
-    listen 443 ssl;
-    ssl_protocols TLSv1.2 TLSv1.3;
+	listen 443 ssl;
+	ssl_protocols TLSv1.3;
 
-    ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
-    ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+	ssl_certificate $CERTS;
+	ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
 
-    location / {
-        root /usr/share/nginx/html;
-        index index.html;
+	root /var/www/html;
+	server_name ${DOMAIN_NAME};
+	
+	location / {
+		include snippets/fastcgi-php.conf;
+		fastcgi_pass wordpress:9000;
+		fastcgi_index index.php;
     }
 }
 " > /etc/nginx/sites-available/default
 
-# Create symlink for sites-enabled (if on Debian/Ubuntu)
+# 심볼릭 링크 생성
 ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 
-# Reload nginx to apply changes
-nginx -s reload
-
-# Keep Nginx running in the foreground (for Docker/Container environments)
-nginx -g "daemon off;"
+# 설정 테스트 후 nginx 포어그라운드 실행
+nginx -t && nginx -g "daemon off;"
