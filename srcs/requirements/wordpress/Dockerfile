@@ -7,6 +7,8 @@ RUN apt-get update -y && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
 
+RUN chmod 666 /usr/local/bin/wp
+
 RUN chmod 666 /etc/php/7.4/fpm/pool.d/www.conf && \
     sed -i 's#listen = /run/php/php7.4-fpm.sock#listen = 0.0.0.0:9000#' /etc/php/7.4/fpm/pool.d/www.conf && \
     chmod 644 /etc/php/7.4/fpm/pool.d/www.conf
