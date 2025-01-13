@@ -30,7 +30,9 @@ server {
 " > /etc/nginx/sites-available/default
 
 # 심볼릭 링크 생성
-ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+if [ ! -L /etc/nginx/sites-enabled/default ]; then
+    ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+fi
 
 # 설정 테스트 후 nginx 포어그라운드 실행
 nginx -t && nginx -g "daemon off;"
