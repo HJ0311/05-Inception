@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 # php 설치
 RUN apt-get update -y && \
-	apt-get install php8.3 php8.3-fpm php8.3-mysql -y && \
+	apt-get install php8.3 php8.3-fpm php8.3-mysql tar unzip -y && \
 	apt-get install curl -y && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
