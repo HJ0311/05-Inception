@@ -21,7 +21,7 @@ server {
 	root /var/www/html;
 	server_name ${DOMAIN_NAME};
 	
-	location / {
+	location ~ \.php$ {
 		include snippets/fastcgi-php.conf;
 		fastcgi_pass wordpress:9000;
 		fastcgi_index index.php;
