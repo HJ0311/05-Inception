@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 # php 설치
 RUN apt-get update -y && \
-	apt-get install php php-fpm pfp-mysql tar unzip -y && \
+	apt-get install php php-fpm php-mysql tar unzip -y && \
 	apt-get install curl -y && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
