@@ -24,4 +24,4 @@ wp core install --url=$DOMAIN_NAME --title=INCEPTION --admin_user=$WP_ADMIN_USER
 
 wp user create $WP_USER --role=author --user_pass=$WP_USER_PASSWORD --allow-root --path=/var/www/html
 
-/user/sbin/php-fpm8.3 -F
+/user/sbin/php-fpm7.4 -F
