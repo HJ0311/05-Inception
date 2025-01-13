@@ -8,6 +8,8 @@ chmod +x xp-cli.phar
 
 mv wp-cli.phar /usr/local/bin/wp
 
+mkdir /run/php
+
 # 루트 권한 실행
 cd /var/www/html && wp core download --allow-root
 
