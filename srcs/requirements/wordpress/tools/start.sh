@@ -4,11 +4,13 @@ sleep 6
 
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
-chmod +x xp-cli.phar
+chmod +x wp-cli.phar
 
 mv wp-cli.phar /usr/local/bin/wp
 
-mkdir /run/php
+mkdir -p /run/php
+chmod +x /usr/local/bin/wp
+chown www-data:www-data /usr/local/bin/wp
 
 # 루트 권한 실행
 cd /var/www/html && wp core download --allow-root
