@@ -36,6 +36,8 @@ services: # 컨테이너로 실행될 서비스
     env_file: .env
     expose:
       - 9000
+    depends_on:
+      - mariadb
     volumes:
       - WordPress:/var/www/html
     networks:
