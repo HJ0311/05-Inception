@@ -6,6 +6,11 @@ services: # 컨테이너로 실행될 서비스
     container_name: mariadb
     build: ./requirements/mariadb/
     image: mariadb:42
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     env_file:
       - .env
     expose:
