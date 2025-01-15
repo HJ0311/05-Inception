@@ -12,7 +12,6 @@ RUN chmod 666 /etc/php/7.4/fpm/pool.d/www.conf && \
     chmod 644 /etc/php/7.4/fpm/pool.d/www.conf
 
 
-
 COPY ./tools/start.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/start.sh
 

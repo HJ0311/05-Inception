@@ -25,3 +25,6 @@ sudo apt-get update
 
 # To install the lastest version
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+sudo mkdir -p /home/hyehan/data/MariaDB
+sudo mkdir -p /home/hyehan/data/WP
