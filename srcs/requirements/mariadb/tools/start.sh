@@ -20,5 +20,6 @@ GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';
 FLUSH PRIVILEGES;
 EOF
 
-# 컨테이너가 종료되지 않도록 대기
+mysqladmin -u root -p$MYSQL_ROOT_PASSWORD shutdown
+
 mysqld_safe
