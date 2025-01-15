@@ -2,7 +2,7 @@ DOCKER_COMPOSE_FILE := srcs/docker-compose.yml
 DB_VOL_DIR := /home/hyehan/data/MariaDB
 WP_VOL_DIR := /home/hyehan/data/WP
 
-COMPOSE_CMD := docker-compose -f ${DOCKER_COMPOSE_FILE}
+COMPOSE_CMD := docker compose -f ${DOCKER_COMPOSE_FILE}
 
 .PHONY : up down clean build start stop restart logs ps
 
@@ -20,7 +20,7 @@ down:
 clean:
 	@rm -rf ${DB_VOL_DIR}/
 	@rm -rf ${WP_VOL_DIR}/
-	docker-compose down --rmi all; clear
+	docker compose down --rmi all; clear
 
 # docker compose 이미지를 빌드
 build:
