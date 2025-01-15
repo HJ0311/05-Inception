@@ -16,21 +16,15 @@ server {
     ssl_protocols TLSv1.3;
 
     ssl_certificate $CERTS;
-    ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+    ssl_certificate_key /etc/nginx/ssl/NG.key;
 
     root /var/www/html;
     server_name ${DOMAIN_NAME};
     index index.php index.html index.htm;
 
-    location / {
-        try_files \$uri \$uri/ /index.php?\$args;
-    }
-
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
         fastcgi_pass wordpress:9000;
-        fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
-        include fastcgi_params;
     }
 }
 " >> /etc/nginx/sites-available/default
