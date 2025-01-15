@@ -51,7 +51,7 @@ volumes:
   DB:
     driver: local
     driver_opts:
-      device: /home/hyehan/data/MaraiDB
+      device: /home/hyehan/data/MariaDB
       o: bind
       type: none
   WordPress:

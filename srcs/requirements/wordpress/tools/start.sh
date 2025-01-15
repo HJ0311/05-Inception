@@ -19,9 +19,9 @@ mv wp-config-sample.php wp-config.php
 
 wp config set SERVER_PORT 3306 --allow-root
 
-wp config set DB_NAME $DB_DATABASE --allow-root --path=/var/www/html
-wp config set DB_USER $DB_USER --allow-root --path=/var/www/html
-wp config set DB_PASSWORD $DB_PASSWORD --allow-root --path=/var/www/html
+wp config set DB_NAME $MYSQL_DATABASE --allow-root --path=/var/www/html
+wp config set DB_USER $MYSQL_USER --allow-root --path=/var/www/html
+wp config set DB_PASSWORD $MYSQL_PASSWORD --allow-root --path=/var/www/html
 wp config set DB_HOST $DB_HOST --allow-root --path=/var/www/html
 
 wp core install --url=$DOMAIN_NAME --title=INCEPTION --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASSWORD --allow-root --path=/var/www/html
