@@ -16,7 +16,7 @@ server {
     ssl_protocols TLSv1.3;
 
     ssl_certificate $CERTS;
-    ssl_certificate_key /etc/nginx/ssl/NG.key;
+    ssl_certificate_key /etc/nginx/ssl/nginx-selfsigned.key;
 
     root /var/www/html;
     server_name ${DOMAIN_NAME};
