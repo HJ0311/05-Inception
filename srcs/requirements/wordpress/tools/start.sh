@@ -19,7 +19,7 @@ mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 
 mv /wp-config.php /var/www/html/wp-config.php
 
-sed -i -r "s/db/$MYSQL_DATABASE/1"   wp-config.php
+sed -i -r "s/db1/$MYSQL_DATABASE/1"   wp-config.php
 sed -i -r "s/user/$MYSQL_USER/1"  wp-config.php
 sed -i -r "s/pwd/$MYSQL_PASSWORD/1"    wp-config.php
 

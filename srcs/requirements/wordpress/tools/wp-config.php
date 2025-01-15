@@ -1,6 +1,6 @@
 <?php
 
-define( 'DB_NAME', 'db' );
+define( 'DB_NAME', 'db1' );
 
 define( 'DB_USER', 'user' );
 
