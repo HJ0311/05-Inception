@@ -9,8 +9,6 @@ chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
 mkdir -p /run/php
-chmod +x /usr/local/bin/wp
-chown www-data:www-data /usr/local/bin/wp
 
 # 루트 권한 실행
 cd /var/www/html && wp core download --allow-root
