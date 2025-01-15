@@ -11,6 +11,8 @@ RUN mkdir -p /var/lib/mysql /var/run/mysqld && \
     chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
 
 # 컨테이너 시작 시 실행할 스크립트 복사
+COPY ./tools/50-server.cnf /etc/mysql/mariadb/conf.d/50-server.cnf
+
 COPY ./tools/start.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/start.sh
 
