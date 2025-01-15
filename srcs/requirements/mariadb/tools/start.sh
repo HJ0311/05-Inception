@@ -2,13 +2,7 @@
 set -e
 
 # mysqld_safe를 백그라운드에서 실행
-mysqld_safe &
-
-# MariaDB 초기화 대기
-until mysqladmin ping -h localhost --silent; do
-	echo "Waiting for MariaDB to start..."
-	sleep 2
-done
+service mysql start
 
 # 초기 설정: 데이터베이스 및 사용자 생성
 # 1. 기본 루트 유저의 비밀번호 설정
@@ -23,5 +17,6 @@ GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';
 FLUSH PRIVILEGES;
 EOF
 
-# 컨테이너가 종료되지 않도록 대기
-wait
+kill $(cat /var/run/mysqld/mysqld.pid)
+
+mysqld
