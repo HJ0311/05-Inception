@@ -6,7 +6,7 @@ define( 'DB_USER', 'user' );
 
 define( 'DB_PASSWORD', 'pwd' );
 
-define( 'DB_HOST', 'mariadb' );
+define( 'DB_HOST', 'mariadb:3306' );
 
 define( 'DB_CHARSET', 'utf8' );
 
