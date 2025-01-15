@@ -23,4 +23,11 @@ define('SECURE_AUTH_SALT', '<-6ftBPOFF.Q-Tq|>ve+)76-.o+onwxc8D2jR4DJ9xX?O}#|mV,F
 define('LOGGED_IN_SALT',   '6DbE7c!E(u B`eu|aMHg%H`$e++r?*hR56#Vuq.Bk{y-(n49z-:6AjMQ$|tm4YV(');
 define('NONCE_SALT',       'eVXLZffe@?Wj.exa@::dkT;nHu,j{.j_0tI#P6x0c1|;,knE;+PVnyg]Te~2.`os');
 
+/** Absolute path to the WordPress directory. */
+if ( ! defined( 'ABSPATH' ) ) {
+    define( 'ABSPATH', __DIR__ . '/' );
+}
+
+/** Sets up WordPress vars and included files. */
+require_once ABSPATH . 'wp-settings.php';
 ?>
