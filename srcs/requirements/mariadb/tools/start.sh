@@ -5,7 +5,7 @@ set -e
 mysqld_safe &
 
 # MariaDB 초기화 대기
-sleep 3
+sleep 10
 
 # 초기 설정: 데이터베이스 및 사용자 생성
 # 1. 기본 루트 유저의 비밀번호 설정
