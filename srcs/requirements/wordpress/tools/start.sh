@@ -15,9 +15,13 @@ mv wp-cli.phar /usr/local/bin/wp
 
 wp core download --allow-root
 
+echo "moving file"
+
 mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 
 mv /wp-config.php /var/www/html/wp-config.php
+
+echo "complete moving"
 
 sed -i -r "s/db1/$MYSQL_DATABASE/1"   wp-config.php
 sed -i -r "s/user/$MYSQL_USER/1"  wp-config.php
