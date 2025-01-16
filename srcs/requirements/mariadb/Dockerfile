@@ -12,5 +12,10 @@ COPY ./tools/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 COPY ./tools/start.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/start.sh
 
+RUN mkdir -p /run/mysqld && \
+    chown mysql:mysql /run/mysqld && \
+    chmod 755 /run/mysqld
+
+
 # 컨테이너 시작 시 MariaDB 실행
 CMD ["start.sh"]
