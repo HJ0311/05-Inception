@@ -22,7 +22,7 @@ echo "moving file"
 
 mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 
-ls /var/www/html
+ls /wp-config.php -l
 
 mv /wp-config.php /var/www/html/wp-config.php
 
