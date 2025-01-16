@@ -11,5 +11,6 @@ COPY ./tools/start.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/start.sh
 
 COPY ./tools/wp-config.php /
+RUN chmod 755 /wp-config.php
 
 CMD ["start.sh"]
