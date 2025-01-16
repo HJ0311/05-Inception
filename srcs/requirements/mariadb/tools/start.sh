@@ -1,26 +1,19 @@
 #!/bin/bash
-set -e
 
-# mysqld_safe를 백그라운드에서 실행
-mysqld_safe &
+service mysql start;
 
-# MariaDB 초기화 대기
-sleep 10
+cat /var/lib/mysql/.setup 2> /dev/null
 
-# 초기 설정: 데이터베이스 및 사용자 생성
-# 1. 기본 루트 유저의 비밀번호 설정
-# 2. 데이터베이스 생성
-# 3. 새 유저 생성
-# 4. 
-mariadb -u root <<-EOF
-CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};
-CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
-GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';
-FLUSH PRIVILEGES;
-EOF
+mysql -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE";
+mysql -e "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD'";
+mysql -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%'";
+mysql -e "FLUSH PRIVILEGES";
+mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD'";
 
-mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';"
+mysql $MYSQL_DATABASE -u root -p $MYSQL_ROOT_PASSWORD
 
-mysqladmin -u root -p$MYSQL_ROOT_PASSWORD shutdown
+mysqladmin -u root -p $MYSQL_ROOT_PASSWORD shutdown
 
-mysqld_safe
+touch /var/lib/mysql/.setup
+
+exec mysqld --console
