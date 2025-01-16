@@ -1,6 +1,6 @@
 #!/bin/bash
 
-service mysql start;
+service mysql start
 
 cat /var/lib/mysql/.setup 2> /dev/null
 
