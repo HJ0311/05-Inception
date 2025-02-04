@@ -1,18 +1,21 @@
 FROM debian:bullseye
 
-# 필요한 패키지 설치
-RUN apt-get update -y && \
-	apt-get install nginx -y && \
-	apt-get install openssl -y && \
-	apt-get install curl -y && \
-	apt-get clean && \
-	rm -rf /var/lib/apt/lists/*
+RUN apt-get update
+RUN apt-get unstall -y nginx openssl
 
-# 컨테이너 시작 시 실행할 스크립트 복사
-COPY ./tools/start.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/start.sh
+RUN mkdir /etc/nginx/ssl
+RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
+	-out /etc/nginx/ssl/hyehan.crt \
+	-keyout /etc/nginx/ssl/hyehan.key \
+	-subj "/C=KR/ST=Seoul/L=Seoul/O=42 School/OU=hyehan/CN=hyehan"
 
-# 볼륨 설정
-VOLUME [ "/var/www/html" ]
+COPY ./conf/index.html /var/www/example.com/public.html/index.html
+RUN chwon -R www-data: /var/www/example.com
 
-CMD ["start.sh"]
+COPY ./conf/nginx.conf /etc/nginx.conf.d
+
+RUN mkdir -p /run/nginx
+
+EXPOSE 443
+
+CMD ["nginx", "-g", "deamon off;"]
