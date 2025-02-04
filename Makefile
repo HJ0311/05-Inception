@@ -1,7 +1,7 @@
 DOCKER_COMPOSE_FILE := srcs/docker-compose.yml
 DB_VOL_DIR := /home/hyehan/data/MariaDB
 WP_VOL_DIR := /home/hyehan/data/WP
-PJ_NETWORK := inception_network
+PJ_NETWORK := srcs_inception_network
 COMPOSE_CMD := docker compose -f ${DOCKER_COMPOSE_FILE}
 
 up:
