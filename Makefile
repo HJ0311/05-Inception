@@ -23,7 +23,7 @@ clean:
 	@docker rmi -f $$(docker images -qa);
 	@docker volume rm $$(docker volume ls -q);
 	docker network rm $$(docker network ls -q);
-	@docker network ls | grep ${PJ_NETWORK} | awk '{print $1}' | xargs docker network rm
+	@docker network rm ${PJ_NETWORK};
 
 	@rm -rf ${DB_VOL_DIR}
 	@rm -rf ${WP_VOL_DIR}
