@@ -10,8 +10,6 @@ RUN mkdir /etc/nginx/ssl && \
 	-keyout /etc/nginx/ssl/hyehan.key \
 	-subj "/C=KR/ST=Seoul/L=Seoul/O=42 School/OU=hyehan/CN=hyehan"
 
-COPY ./conf/index.html /usr/share/nginx/html/index.html
-
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 
 RUN mkdir -p /run/nginx
