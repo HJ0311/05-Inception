@@ -1,6 +1,6 @@
 FROM debian:bullseye
 
-RUN apt-get update && \
+RUN apt-get update -y && \
 	apt-get install -y nginx openssl && \
 	apt-get clean
 

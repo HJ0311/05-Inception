@@ -1,6 +1,6 @@
 FROM debian:bullseye
 
-RUN apt-get update && \
+RUN apt-get update -y && \
 	apt-get install -y wget curl php php-mysql php-fpm && \
 	apt-get clean
 
