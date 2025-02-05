@@ -1,5 +1,10 @@
 #!/bin/bash
 
+openssl req -newkey rsa:2048 -x509 -days 365 -nodes \
+	-out $CERT_DIR \
+	-keyout /etc/ssl/private/nginx-selfsigned.key \
+	-subj "/C=KR/ST=Seoul/L=Seoul/O=42 School/OU=hyehan/CN=hyehan.42.fr"
+
 echo "
 server {
 	listen 443 ssl;
@@ -7,8 +12,8 @@ server {
 
 	server_name www.$DOMAIN_NAME $DOMAIN_NAME;
 
-	ssl_certificate /etc/nginx/ssl/hyehan.crt;
-	ssl_certificate_key /etc/nginx/ssl/hyehan.key;
+	ssl_certificate $CERT_DIR;
+	ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
 
 	ssl_protocols TLSv1.2 TLSv1.3;
 
