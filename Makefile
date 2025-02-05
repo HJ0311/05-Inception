@@ -7,7 +7,7 @@ COMPOSE_CMD := docker compose -f ${DOCKER_COMPOSE_FILE}
 up:
 	@mkdir -p ${DB_VOL_DIR} && chmod 755 ${DB_VOL_DIR}
 	@mkdir -p ${WP_VOL_DIR} && chmod 755 ${WP_VOL_DIR}
-	@${COMPOSE_CMD} up
+	@${COMPOSE_CMD} up -d
 
 down:
 	@${COMPOSE_CMD} down
