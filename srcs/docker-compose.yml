@@ -32,7 +32,7 @@ services:
     build: ./requirements/wordpress
     image: wordpress:42
     env_file:
-      - ./env
+      - .env
     depends_on:
       - mariadb
     volumes:
