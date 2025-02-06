@@ -16,17 +16,7 @@ services:
     restart: always
     networks:
       - inception_network
-  mariadb:
-    container_name: mariadb
-    build: ./requirements/mariadb
-    image: mariadb:42
-    env_file:
-      - .env
-    volumes:
-      - mariadb_data:/var/lib/mysql
-    restart: always
-    networks:
-      - inception_network
+
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress
@@ -41,6 +31,18 @@ services:
     networks:
       - inception_network
 
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    image: mariadb:42
+    env_file:
+      - .env
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    restart: always
+    networks:
+      - inception_network
+
 volumes:
   mariadb_data:
     driver: local
@@ -48,11 +50,12 @@ volumes:
       type: none
       device: /home/hyehan/data/MariaDB
       o: bind
+
   wordpress_data:
     driver: local
     driver_opts:
       type: none
-      device: /home/hyehan/data/MariaDB
+      device: /home/hyehan/data/WP
       o: bind
 
 networks:
