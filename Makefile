@@ -1,6 +1,6 @@
 DOCKER_COMPOSE_FILE := srcs/docker-compose.yml
-DB_VOL_DIR := /home/hyehan/data/MariaDB
-WP_VOL_DIR := /home/hyehan/data/WP
+DB_VOL_DIR := /home/hyehan/data/mysql
+WP_VOL_DIR := /home/hyehan/data/wordpress
 
 COMPOSE_CMD := docker compose -f ${DOCKER_COMPOSE_FILE}
 
