@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 # Install mariadb server and dumb init without recommended packages, then clean up
 RUN apt-get update -y && \
-	apt-get install -y --no-install-recommands mariadb-server dumb-init && \
+	apt-get install -y --no-install-recommends mariadb-server dumb-init && \
 	rm -rf /var/lib/apt/lists/* && apt-get clean
 
 # Generate mariaDB socket directory

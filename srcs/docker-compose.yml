@@ -18,7 +18,7 @@ services:
     image: wordpress:42
     build: ./requirements/wordpress
     volumes:
-      - wordpress_data:var/www/html
+      - wordpress_data:/var/www/html
     networks:
       - inception_network
     restart: always
@@ -40,7 +40,7 @@ services:
     env_file:
       - .env
     healthcheck:
-      test: ["CMD", "amysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
       timeout: 5s
       retries: 5

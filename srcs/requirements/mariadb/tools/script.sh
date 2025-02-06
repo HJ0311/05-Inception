@@ -1,6 +1,13 @@
 #!/bin/bash
 
-mysqld --initialize-insecure --user=mysql --datadir=/var/lib/mysql
+if [[ -z "${MYSQL_DATABASE}" || -z "${MYSQL_USER}" || -z "${MYSQL_PASSWORD}" || -z "${MYSQL_ROOT_PASSWORD}" ]]; then
+    echo "Warning: Missing required environment variables. Default values will be used."
+fi
+
+if [ ! -d "/var/lib/mysql/mysql" ]; then
+    echo "Initializing MariaDB data directory..."
+    mysqld --initialize-insecure --user=mysql --datadir=/var/lib/mysql
+fi
 
 cat << EOF > /tmp/mysql-init.sql
 CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};

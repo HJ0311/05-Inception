@@ -5,20 +5,20 @@ RUN apt-get update -y && \
 	apt-get install -y --no-install-recommends nginx openssl && \
 	rm -rf /var/lib/apt/lists/* && apt-get clean
 
-# Create SSL directory and generate self-signed certification
+# Create SSL directory and generate self-signed certificate
 RUN mkdir -p /etc/nginx/ssl && \
 	openssl req -newkey rsa:4096 -x509 -days 365 -nodes \
 	-out /etc/nginx/ssl/hyehan.crt \
 	-keyout /etc/nginx/ssl/hyehan.key \
 	-subj "/C=KR/ST=Seoul/L=Seoul/O=42 School/CN=hyehan.42.fr"
-# req: Requesting signed certification
+# req: Requesting signed certificate
 # -newkey rsa:4096: Generate new 4096 bit RSA key
-# -x509: Generate self-signed X.506 Certification (available without CA)
-# -days 365: This certification is vaild for 365 days
+# -x509: Generate self-signed X.506 certificate (available without CA)
+# -days 365: This certificate is valid for 365 days
 # -nodes: Generate without private password(.key)
-# -out: Save SSL certification file(.crt) in /etc/nginx/ssl/hyehan.crt
+# -out: Generate SSL certificate file(.crt) in /etc/nginx/ssl/hyehan.crt
 # -keyout: Save private key(.key) in /etc/nginx/ssl/hyehan.key
-# -subj: Specify the subject of his certification
+# -subj: Specify the subject of his certificate
 #	/C: country code
 #	/ST: state information
 #	/L: location information
