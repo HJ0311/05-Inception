@@ -1,61 +1,62 @@
-version: '3.9'
-
 services:
   nginx:
     container_name: nginx
-    build: ./requirements/nginx
     image: nginx:42
-    env_file:
-      - .env
+    build: ./requirements/nginx
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - inception_network
+    restart: always
     depends_on:
       - wordpress
     ports:
-      - "443:443"
-    volumes:
-      - wordpress_data:/var/www/html
-    restart: always
-    networks:
-      - inception_network
-
+      - 443:443
+  
   wordpress:
     container_name: wordpress
-    build: ./requirements/wordpress
     image: wordpress:42
-    env_file:
-      - .env
-    depends_on:
-      - mariadb
+    build: ./requirements/wordpress
     volumes:
-      - wordpress_data:/var/www/html
-    restart: always
+      - wordpress_data:var/www/html
     networks:
       - inception_network
+    restart: always
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    env_file:
+      - .env
 
   mariadb:
     container_name: mariadb
-    build: ./requirements/mariadb
     image: mariadb:42
-    env_file:
-      - .env
+    build: ./requirements/mariadb
     volumes:
       - mariadb_data:/var/lib/mysql
-    restart: always
     networks:
       - inception_network
+    restart: always
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "amysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   mariadb_data:
     driver: local
     driver_opts:
       type: none
-      device: /home/hyehan/data/MariaDB
+      device: /home/hyehan/data/mysql
       o: bind
-
   wordpress_data:
     driver: local
     driver_opts:
       type: none
-      device: /home/hyehan/data/WP
+      device: /home/hyehan/data/wordpress
       o: bind
 
 networks:
