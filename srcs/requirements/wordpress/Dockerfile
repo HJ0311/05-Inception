@@ -1,6 +1,6 @@
 FROM debian:bullseye
 
-RUN apt-get update -y --no-install-recommends && \
+RUN apt-get update -y && \
 	apt-get install -y --no-install-recommends wget curl php php-mysql php-fpm && \
 	apt-get clean
 
