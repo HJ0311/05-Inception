@@ -2,9 +2,9 @@
 # Install essential #
 #####################
 
-sudo apt-get update -y
-sudo apt-get install vim -y
-sudo apt-get install make -y
+sudo apt-get update -y --no-install-recommends
+sudo apt-get install vim -y --no-install-recommends
+sudo apt-get install make -y --no-install-recommends
 
 ##################
 # Install Docker #

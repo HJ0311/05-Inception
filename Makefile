@@ -10,24 +10,16 @@ up:
 	@${COMPOSE_CMD} up -d
 
 down:
-	@${COMPOSE_CMD} down
+	@${COMPOSE_CMD} down --volumes --rmi all --remove-orphans
+	@rm -rf ${DB_VOL_DIR}
+	@rm -rf ${WP_VOL_DIR}
 
 re:
 	@rm -rf ${DB_VOL_DIR}
 	@rm -rf ${WP_VOL_DIR}
 	@${COMPOSE_CMD} up --build
 
-clean:
-	@docker stop $$(docker ps -qa);
-	@docker rm $$(docker ps -qa);
-	@docker rmi -f $$(docker images -qa);
-	@docker volume rm $$(docker volume ls -q);
-	@docker network rm ${PJ_NETWORK};
-
-	@rm -rf ${DB_VOL_DIR}
-	@rm -rf ${WP_VOL_DIR}
-
 ps:
 	@docker container ps -a
 
-.PHONY: all re down clean ps
+.PHONY: all re down ps
