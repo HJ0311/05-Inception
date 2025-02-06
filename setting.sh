@@ -1,19 +1,20 @@
-apt-get update -y
-apt-get install vim make g++ git -y --no-install-recommends
+apt-get remove docker docker-engine docker.io containerd runc
 
-##################
-# Install Docker #
-##################
-# Add Docker's official GPG key
-sudo apt-get install ca-certificates curl -y
-sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
-# Add the repository to Apt sources:
-echo \
-	"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-	$(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-	sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
-# To install the lastest version
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+apt-get update -y
+apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+apt-get install -y make g++ vim --no-install-recommends
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+apt-get update
+apt-get install docker-ce docker-ce-cli containerd.io
+
+systemctl start docker
+systemctl enable docker
+docker --version
+
+sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r .tag_name)/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose --version
