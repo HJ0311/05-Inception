@@ -1,7 +1,7 @@
 services:
   nginx:
     container_name: nginx
-    image: nginx:42
+    image: nginx
     build: ./requirements/nginx
     volumes:
       - wordpress_data:/var/www/html
@@ -15,7 +15,7 @@ services:
   
   wordpress:
     container_name: wordpress
-    image: wordpress:42
+    image: wordpress
     build: ./requirements/wordpress
     volumes:
       - wordpress_data:/var/www/html
@@ -30,7 +30,7 @@ services:
 
   mariadb:
     container_name: mariadb
-    image: mariadb:42
+    image: mariadb
     build: ./requirements/mariadb
     volumes:
       - mariadb_data:/var/lib/mysql
