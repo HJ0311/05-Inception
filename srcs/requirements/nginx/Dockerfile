@@ -1,7 +1,7 @@
 FROM debian:bullseye
 
-RUN apt-get update -y && \
-	apt-get install -y\
+RUN apt-get update -y --no-install-recommends && \
+	apt-get install -y --no-install-recommends \
 	nginx \
 	openssl && \
 	apt-get clean
