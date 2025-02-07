@@ -8,7 +8,7 @@ RUN apt-get update -y && \
 # Generate mariaDB socket directory
 # Change the owner of /var/run/mysql to the mysql user and group
 RUN mkdir -p /var/run/mysqld && \
-	chmod -R mysql:mysql /var/run/mysql && \
+	chown -R mysql:mysql /var/run/mysql && \
 	chmod 777 /var/run/mysqld
 
 COPY ./tools/script.sh /tmp/script.sh
