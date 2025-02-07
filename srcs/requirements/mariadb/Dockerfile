@@ -25,4 +25,4 @@ EXPOSE 3306
 # Handles signal properly
 ENTRYPOINT [ "/usr/bin/dumb-init", "--" ]
 
-CMD ["bash", "/tmp/script.sh"]
+CMD ["/tmp/script.sh"]
